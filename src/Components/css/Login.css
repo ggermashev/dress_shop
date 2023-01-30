@@ -1,0 +1,16 @@
+.form {
+    width: 250px;
+    position: relative;
+    margin: auto;
+}
+
+h1.title {
+    text-align: center;
+}
+
+.submit {
+    margin-top: 20px;
+    margin-left: 30%;
+    width: 40%;
+    color: white;
+}

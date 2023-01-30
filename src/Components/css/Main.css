@@ -1,0 +1,43 @@
+.filters {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.content {
+    margin: 30px auto;
+}
+
+.price {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.filter-btn {
+    font-size: 16px;
+    padding: 3px;
+    height: 100px;
+    width: 70px;
+    background-color: black;
+}
+
+.search {
+    width: 200px;
+    position: relative;
+    margin: auto;
+    margin-top: 30px;
+}
+
+
+h3.title {
+    text-align: center;
+}
+
+.filter-canvas {
+    background-color: rgba(0,0,0, 0.8);
+    color: white;
+}
+
+.main {
+    margin-bottom: 45px;
+}
+
