@@ -20,6 +20,10 @@
     background-color: black;
 }
 
+.filter-btn:hover {
+    background-color: rgb(247, 84, 52);
+}
+
 .search {
     width: 200px;
     position: relative;
@@ -33,7 +37,7 @@ h3.title {
 }
 
 .filter-canvas {
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
 }
 
@@ -41,3 +45,62 @@ h3.title {
     margin-bottom: 45px;
 }
 
+.detailed {
+    background-color: rgb(247, 84, 52) !important;
+    border-color: black;
+}
+
+.detailed:hover {
+    color: black;
+}
+
+.card {
+    border: 2px solid black;
+    position: relative;
+    min-height: 400px;
+}
+
+.card:hover {
+    transform: translate(5px,5px);
+    -webkit-box-shadow: -23px -23px 10px -7px rgba(247, 84, 52, 1);
+    -moz-box-shadow: -23px -23px 10px -7px rgba(247, 84, 52, 1);
+    box-shadow: -23px -23px 10px -7px rgba(247, 84, 52, 1);
+}
+
+.active>.page-link {
+    background-color: black;
+}
+
+.form-check-input:checked {
+    background-color: rgb(247, 84, 52);
+    border-color: black;
+}
+
+.form-control {
+    display: inline-block!important;
+    float: left;
+}
+
+.search-box {
+    max-width: 290px;
+    min-width: 290px;
+    float: left;
+    position: relative;
+}
+
+.price-box {
+    max-width: 350px
+}
+
+.filter-box {
+    max-width: 150px;
+}
+
+.price-text {
+    position: absolute;
+    bottom: -15px;
+    right: 5px;
+    color: rgb(247, 84, 52);
+    font-size: 1.2em;
+    font-weight: bold;
+}

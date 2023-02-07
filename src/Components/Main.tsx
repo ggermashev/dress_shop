@@ -3,10 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from "react-bootstrap/Container";
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {Col, Pagination, Row} from "react-bootstrap";
+import {Col, Image, Pagination, Row} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import {Range} from 'react-range';
 import "./css/Main.css"
+import "./css/Logo.css"
+
 let _ = require('lodash');
 
 async function get_dress() {
@@ -35,7 +37,7 @@ export function Main() {
     const [dress, setDress] = useState([])
     const [slots, setSlots] = useState([])
     //checkboxes
-    let [checks, setChecks] = useState<{status: boolean, id: string} []>([])
+    let [checks, setChecks] = useState<{ status: boolean, id: string } []>([])
     //pagination
     const [page, setPage] = useState(1)
 
@@ -43,7 +45,9 @@ export function Main() {
         get_slots().then(
             val => {
                 setSlots(val)
-                setChecks(val.map((v: {id: string}) => { return {status: true, id: v.id} }))
+                setChecks(val.map((v: { id: string }) => {
+                    return {status: true, id: v.id}
+                }))
                 console.log(val)
                 console.log(checks)
             },
@@ -58,18 +62,18 @@ export function Main() {
         get_dress().then(
             val => {
                 setDress(val.filter((v: { price: number }) => {
-                    return (v.price <= valsto[0]) && v.price >= valsfrom[0]
-                })
-                    .filter((v: { title: string }) => {
-                        return (v.title.toLowerCase().trim().includes(search.toLowerCase().trim()))
+                        return (v.price <= valsto[0]) && v.price >= valsfrom[0]
                     })
-                    .filter((v: {slot_id: string}) => {
-                        for (let c of checks) {
-                            if (c.id == v.slot_id) {
-                                return c.status
+                        .filter((v: { title: string }) => {
+                            return (v.title.toLowerCase().trim().includes(search.toLowerCase().trim()))
+                        })
+                        .filter((v: { slot_id: string }) => {
+                            for (let c of checks) {
+                                if (c.id == v.slot_id) {
+                                    return c.status
+                                }
                             }
-                        }
-                    })
+                        })
                 )
             },
             err => {
@@ -81,7 +85,7 @@ export function Main() {
     return (
         <Container fluid className="main">
             <Row className="filters">
-                <Col xs={12} sm={4}>
+                <Col className="filter-box" xs={12} sm={4} md={2}>
                     <Button className="filter-btn" variant="primary" onClick={handleShow}>
                         Фильтры
                     </Button>
@@ -114,7 +118,7 @@ export function Main() {
                         </Offcanvas.Body>
                     </Offcanvas>
                 </Col>
-                <Col xs={12} sm={4}>
+                <Col className="price-box" xs={12} sm={8} md={5}>
                     <div className="price">Цена от: {valsfrom}</div>
                     <Range
                         step={500}
@@ -129,7 +133,8 @@ export function Main() {
                                     ...props.style,
                                     height: '6px',
                                     width: '100%',
-                                    backgroundColor: '#ccc'
+                                    backgroundColor: '#F75434',
+                                    maxWidth: '350px'
                                 }}
                             >
                                 {children}
@@ -161,7 +166,8 @@ export function Main() {
                                     ...props.style,
                                     height: '6px',
                                     width: '100%',
-                                    backgroundColor: '#ccc'
+                                    backgroundColor: '#F75434',
+                                    maxWidth: '350px'
                                 }}
                             >
                                 {children}
@@ -180,28 +186,33 @@ export function Main() {
                         )}
                     />
                 </Col>
-                <Col xs={12} sm={4}>
-                    <Form className="search">
-                        <Form.Group>
-                            <Form.Control type="text" value={search} placeholder="Поиск"
-                                          onChange={e => setSearch(e.target.value)}/>
-                        </Form.Group>
-                    </Form>
+                <Col xs={12} sm={12} md={5}>
+                    <div className="search-box">
+                        <Form className="search">
+                            <Form.Group>
+                                <Form.Control type="text" value={search} placeholder="Поиск"
+                                              onChange={e => setSearch(e.target.value)}/>
+                            </Form.Group>
+                        </Form>
+                        <Image className="logo-empty" src={require('../media/images/logo-empty.png')}></Image>
+                        <Image className="square" src={require('../media/images/square.png')}></Image>
+                    </div>
                 </Col>
             </Row>
             <Row>
-                {_.slice(dress,(page-1)*12,page*12).map((d: { id: string, title: string, img: string, price: string, likes: string, slot_id: string }) => {
+                {_.slice(dress, (page - 1) * 12, page * 12).map((d: { id: string, title: string, img: string, price: string, likes: string, slot_id: string }) => {
                     return (
                         <Col xxl={2} lg={3} md={4} sm={6} sx={12}>
-                            <Card style={{width: '14rem'}} className="content">
+                            <Card style={{width: '14rem'}} className="content" onClick={function() {window.location.href=`/dress/${d.id}`}}>
                                 <Card.Img variant="top"
                                           src={require(`../${_.join(_.slice(_.split(d.img, '/'), 3), '/')}`)}/>
                                 <Card.Body>
                                     <Card.Title>{d.title}</Card.Title>
                                     <Card.Text>
-                                        <p>{d.price} рублей</p>
+                                        <p className="price-text">{d.price} руб</p>
                                     </Card.Text>
-                                    <Button variant="primary" href={`/dress/${d.id}`}>Подробнее</Button>
+                                    {/*<Button className="detailed" variant="primary"*/}
+                                    {/*        href={`/dress/${d.id}`}>Подробнее</Button>*/}
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -209,30 +220,30 @@ export function Main() {
                 })}
             </Row>
             <Row>
-                    <Col className="pagination">
-                        <Pagination>
-                            <Pagination.First onClick={() => {
-                                setPage(1)
-                            }}/>
-                            {page > 1 && <Pagination.Prev onClick={() => {
-                                setPage(page - 1)
-                            }}/>}
-                            {page > 1 && <Pagination.Item onClick={() => {
-                                setPage(page - 1)
-                            }}>{page - 1}</Pagination.Item>}
-                            <Pagination.Item active>{page}</Pagination.Item>
-                            {page < Math.ceil((dress.length) / 12) && <Pagination.Item onClick={() => {
-                                setPage(page + 1)
-                            }}>{page + 1}</Pagination.Item>}
-                            {page < Math.ceil(dress.length / 12) && <Pagination.Next onClick={() => {
-                                setPage(page + 1)
-                            }}/>}
-                            <Pagination.Last onClick={() => {
-                                setPage(Math.ceil(dress.length / 12))
-                            }}/>
-                        </Pagination>
-                    </Col>
-                </Row>
+                <Col className="pagination">
+                    <Pagination>
+                        <Pagination.First onClick={() => {
+                            setPage(1)
+                        }}/>
+                        {page > 1 && <Pagination.Prev onClick={() => {
+                            setPage(page - 1)
+                        }}/>}
+                        {page > 1 && <Pagination.Item onClick={() => {
+                            setPage(page - 1)
+                        }}>{page - 1}</Pagination.Item>}
+                        <Pagination.Item active>{page}</Pagination.Item>
+                        {page < Math.ceil((dress.length) / 12) && <Pagination.Item onClick={() => {
+                            setPage(page + 1)
+                        }}>{page + 1}</Pagination.Item>}
+                        {page < Math.ceil(dress.length / 12) && <Pagination.Next onClick={() => {
+                            setPage(page + 1)
+                        }}/>}
+                        <Pagination.Last onClick={() => {
+                            setPage(Math.ceil(dress.length / 12))
+                        }}/>
+                    </Pagination>
+                </Col>
+            </Row>
         </Container>
     )
 }

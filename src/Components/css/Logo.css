@@ -1,0 +1,29 @@
+.logo {
+    width: 40px;
+    height: 40px;
+    float: right;
+}
+
+.logo-empty {
+    width: 40px;
+    height: 40px;
+    float: right;
+}
+
+.square {
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    top: 44px;
+    right: -14px;
+    transition: transform .1s ease-in-out;
+}
+
+.logo-empty:hover ~ .square {
+    transform: translate(-14px,0px) rotate(90deg);
+}
+
+.logo-empty:checked {
+    width: 42px;
+    height: 42px;
+}

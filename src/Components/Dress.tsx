@@ -203,7 +203,7 @@ export function Dress() {
     }, [])
     return (
         <div>
-            <Button className="btn-primary" onClick={() => {
+            <Button className="btn-dress" onClick={() => {
                 navigate(-1)
             }}>
                 Назад
@@ -224,7 +224,7 @@ export function Dress() {
                             <p>{dress.description}</p>
                         </Scrollbar>
                         <div className="buy">
-                            <span className="price">{dress.price}р</span><Button>Купить</Button>
+                            <span className="price">{dress.price}р</span><Button className="btn-dress">Купить</Button>
                         </div>
                     </Col>
                 </Row>
@@ -348,9 +348,9 @@ export function Dress() {
                                     setComment(e.target.value);
                                 }}
                             />
-                            <Button type="submit" variant="outline-dark">Отправить</Button>
+                            <Button className="btn-dress" type="submit" variant="outline-dark">Отправить</Button>
                         </Form>
-                        <Button ref={target} style={{opacity: 100, backgroundColor: 'white', border: 'none'}}></Button>
+                        <Button className="btn-hint" ref={target} style={{opacity: 0, backgroundColor: 'white', border: 'none'}}></Button>
                         <Overlay target={target.current} show={show} placement="right">
                             {(props) => (
                                 <Tooltip id="overlay-example" {...props}>

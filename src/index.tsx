@@ -16,6 +16,8 @@ import {Registration} from "./Components/Registration";
 import {Logout} from "./Components/Logout";
 import {Footer} from "./Components/Footer";
 import {Dress} from "./Components/Dress";
+import {About} from "./Components/About";
+import {Profile} from "./Components/Profile";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
     {
         path: "/dress/:id",
         element: <Dress/>
+    },
+    {
+        path: "/about",
+        element: <About/>
+    },
+    {
+        path: "/profile",
+        element: <Profile/>
     },
 ])
 

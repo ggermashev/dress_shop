@@ -9,6 +9,8 @@
     border: 2px solid black;
     position: relative;
     padding-bottom: 60px;
+    background-color: white;
+    border-radius: 20px;
 }
 
 .buy {
@@ -101,4 +103,18 @@
 .delete-comment:hover {
     height: 22px;
     width: 22px;
+}
+
+.btn-hint:hover {
+    cursor: initial;
+}
+
+.btn-dress {
+    background-color: rgb(247, 84, 52);
+    border-color: black;
+}
+
+.btn-dress:hover {
+    background-color: black;
+    border-color: rgb(247, 84, 52);
 }
