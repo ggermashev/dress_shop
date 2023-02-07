@@ -202,7 +202,7 @@ export function Main() {
             <Row>
                 {_.slice(dress, (page - 1) * 12, page * 12).map((d: { id: string, title: string, img: string, price: string, likes: string, slot_id: string }) => {
                     return (
-                        <Col xxl={2} lg={3} md={4} sm={6} sx={12}>
+                        <Col xxl={3} lg={3} md={4} sm={6} sx={12}>
                             <Card style={{width: '14rem'}} className="content" onClick={function() {window.location.href=`/dress/${d.id}`}}>
                                 <Card.Img variant="top"
                                           src={require(`../${_.join(_.slice(_.split(d.img, '/'), 3), '/')}`)}/>

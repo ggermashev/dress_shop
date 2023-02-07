@@ -104,3 +104,9 @@ h3.title {
     font-size: 1.2em;
     font-weight: bold;
 }
+
+@media (min-width: 1400px) {
+    .content {
+        width: 20rem!important;
+    }
+}
