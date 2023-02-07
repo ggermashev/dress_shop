@@ -8,12 +8,13 @@ router.register('users_id', UserIdViewSet)
 router.register('login', LoginViewSet)
 router.register('review', ReviewViewSet)
 
-
 urlpatterns = [
     path('api/', include(router.urls)),
     path('', page),
+    path('about/', page),
     path('login/', page),
     path('registration/', page),
     path('logout/', page),
     path('dress/<int:dress_id>/', dress),
+    path('profile/', page),
 ]
