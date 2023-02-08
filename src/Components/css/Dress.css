@@ -6,7 +6,7 @@
 .mycard {
     margin: auto;
     margin-top: 10px;
-    border: 2px solid black;
+    border: dotted 5px rgb(247, 84, 52);
     position: relative;
     padding-bottom: 60px;
     background-color: white;
@@ -26,11 +26,14 @@
 }
 
 .comment {
-    border-bottom: 1px solid black;
     padding-top: 10px;
     padding-bottom: 10px;
     word-wrap: break-word;
     position: relative;
+    border-radius: 200px;
+    border: 1px solid rgb(247, 84, 52);
+    margin-bottom: 10px;
+    box-shadow: -5px 5px black;
 }
 
 .send-comment {
@@ -117,4 +120,12 @@
 .btn-dress:hover {
     background-color: black;
     border-color: rgb(247, 84, 52);
+}
+
+.comment:nth-child(odd) {
+    background-color: white;
+}
+
+.comment:nth-child(even) {
+    background-color: lightsalmon;
 }

@@ -2,3 +2,7 @@ body {
     /*background-color: #fadbc8;*/
     background-color: darkgrey;
 }
+
+* {
+    cursor: url("../../media/images/cursor.png"), auto;
+}

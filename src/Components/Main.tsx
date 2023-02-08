@@ -133,7 +133,7 @@ export function Main() {
                                     ...props.style,
                                     height: '6px',
                                     width: '100%',
-                                    backgroundColor: '#F75434',
+                                    backgroundColor: "white",
                                     maxWidth: '350px'
                                 }}
                             >
@@ -166,7 +166,7 @@ export function Main() {
                                     ...props.style,
                                     height: '6px',
                                     width: '100%',
-                                    backgroundColor: '#F75434',
+                                    backgroundColor: 'white',
                                     maxWidth: '350px'
                                 }}
                             >
