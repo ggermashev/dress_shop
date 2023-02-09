@@ -1,8 +1,6 @@
 body {
     /*background-color: #fadbc8;*/
-    background-color: darkgrey;
+    /*background-color: papayawhip;*/
+    background-color: #FFF5EE;
 }
 
-* {
-    cursor: url("../../media/images/cursor.png"), auto;
-}

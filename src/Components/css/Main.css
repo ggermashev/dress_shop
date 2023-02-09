@@ -62,9 +62,7 @@ h3.title {
 
 .card:hover {
     transform: translate(5px,5px);
-    -webkit-box-shadow: -23px -23px 10px -7px rgba(247, 84, 52, 1);
-    -moz-box-shadow: -23px -23px 10px -7px rgba(247, 84, 52, 1);
-    box-shadow: -23px -23px 10px -7px rgba(247, 84, 52, 1);
+    box-shadow: -5px -5px rgba(247, 84, 52, 0.2);
 }
 
 .active>.page-link {
