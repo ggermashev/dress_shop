@@ -11,7 +11,7 @@ router.register('review', ReviewViewSet)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('', page),
-    path('about/', page),
+    path('shop/', page),
     path('login/', page),
     path('registration/', page),
     path('logout/', page),
