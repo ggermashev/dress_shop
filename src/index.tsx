@@ -26,7 +26,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
     {
         path: "",
-        element: <Main/>
+        element: <About/>
     },
     {
         path: '/login',
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
         element: <Dress/>
     },
     {
-        path: "/about",
-        element: <About/>
+        path: "/shop",
+        element: <Main/>
     },
     {
         path: "/profile",

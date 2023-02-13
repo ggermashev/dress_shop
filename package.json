@@ -13,6 +13,7 @@
     "bootstrap": "^5.2.3",
     "crypto-js": "^4.1.1",
     "fetch": "^1.1.0",
+    "gsap": "^3.11.4",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",

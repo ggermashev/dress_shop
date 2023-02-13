@@ -18,7 +18,7 @@ h3.title {
     bottom: 0px;
     position: fixed;
     height: 40px;
-    z-index: 10;
+    z-index: 300;
 }
 
 .contact {

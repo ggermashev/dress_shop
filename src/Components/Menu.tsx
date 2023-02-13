@@ -20,8 +20,8 @@ export function Menu() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Главная</Nav.Link>
-                        <Nav.Link href="/about">О проекте</Nav.Link>
+                        <Nav.Link href="/shop">Магазин</Nav.Link>
+                        <Nav.Link href="/">О проекте</Nav.Link>
                         {localStorage.getItem('mim_key') != null && <Nav.Link href="/profile">Личный кабинет</Nav.Link>}
                     </Nav>
                     <Nav>
