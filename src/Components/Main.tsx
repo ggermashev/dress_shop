@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from "react-bootstrap/Container";
@@ -8,6 +8,10 @@ import Form from 'react-bootstrap/Form';
 import {Range} from 'react-range';
 import "./css/Main.css"
 import "./css/Logo.css"
+import {Filters} from "./Filters";
+import {PriceRange} from "./PriceRange";
+import {MyPagination} from "./MyPagination";
+import {DressRow} from "./DressRow";
 
 let _ = require('lodash');
 
@@ -34,12 +38,14 @@ export function Main() {
     //search
     const [search, setSearch] = useState('')
     //dress
-    const [dress, setDress] = useState([])
-    const [slots, setSlots] = useState([])
+    const [dress, setDress] = useState<{ id: string, title: string, img: string, price: string, likes: string, slot_id: string }[]>([])
+    const [slots, setSlots] = useState<{ id: string, title: string }[]>([])
     //checkboxes
     let [checks, setChecks] = useState<{ status: boolean, id: string } []>([])
     //pagination
-    const [page, setPage] = useState(1)
+    const [pages, setPages] = useState<number[]>([1, 1, 1])
+    const perPage = 4
+    const [lengths, setLengths] = useState<number[]>([])
 
     useEffect(() => {
         get_slots().then(
@@ -48,8 +54,8 @@ export function Main() {
                 setChecks(val.map((v: { id: string }) => {
                     return {status: true, id: v.id}
                 }))
-                console.log(val)
-                console.log(checks)
+                // console.log(val)
+                // console.log(checks)
             },
             err => {
                 alert('Что-то пошло не так :)')
@@ -61,19 +67,31 @@ export function Main() {
     useEffect(() => {
         get_dress().then(
             val => {
-                setDress(val.filter((v: { price: number }) => {
-                        return (v.price <= valsto[0]) && v.price >= valsfrom[0]
+                let dr = val.filter((v: { price: number }) => {
+                    return (v.price <= valsto[0]) && v.price >= valsfrom[0]
+                })
+                    .filter((v: { title: string }) => {
+                        return (v.title.toLowerCase().trim().includes(search.toLowerCase().trim()))
                     })
-                        .filter((v: { title: string }) => {
-                            return (v.title.toLowerCase().trim().includes(search.toLowerCase().trim()))
-                        })
-                        .filter((v: { slot_id: string }) => {
-                            for (let c of checks) {
-                                if (c.id == v.slot_id) {
-                                    return c.status
-                                }
+                    .filter((v: { slot_id: string }) => {
+                        for (let c of checks) {
+                            if (c.id == v.slot_id) {
+                                return c.status
                             }
-                        })
+                        }
+                    })
+                setDress(dr)
+                get_slots().then(
+                    slots => {
+                        setLengths(slots.map((s: { id: string }) => {
+                            return (
+                                dr.filter((d: { slot_id: string }) => {
+                                    return (d.slot_id === s.id)
+                                }).length
+                            )
+                        }))
+                        setPages([1,1,1])
+                    }
                 )
             },
             err => {
@@ -86,105 +104,12 @@ export function Main() {
         <Container fluid className="main">
             <Row className="filters">
                 <Col className="filter-box" xs={12} sm={4} md={2}>
-                    <Button className="filter-btn" variant="primary" onClick={handleShow}>
-                        Фильтры
-                    </Button>
-                    <Offcanvas className="filter-canvas" backdrop={false} scroll={true} show={show}
-                               onHide={handleClose}>
-                        <Offcanvas.Header closeButton>
-                        </Offcanvas.Header>
-                        <Offcanvas.Body className="filters-body">
-                            <h3 className="title">Слоты</h3>
-                            <Form>
-                                <div key={`default-checkbox`} className="mb-3">
-                                    {slots.map((s: { id: string, title: string }, ind) => {
-                                        return (
-                                            <Form.Check
-                                                type='checkbox'
-                                                id={`${ind}`}
-                                                label={`${s.title}`}
-                                                onChange={(e) => {
-                                                    checks[ind].status = !checks[ind].status;
-                                                    checks[ind].id = s.id
-                                                    let copy = Array.from(checks)
-                                                    setChecks(copy);
-                                                }}
-                                                defaultChecked={checks[ind].status}
-                                            />
-                                        )
-                                    })}
-                                </div>
-                            </Form>
-                        </Offcanvas.Body>
-                    </Offcanvas>
+                    <Filters handleShow={handleShow} checks={checks} setChecks={setChecks} show={show}
+                             handleClose={handleClose} slots={slots}/>
                 </Col>
                 <Col className="price-box" xs={12} sm={8} md={5}>
-                    <div className="price">Цена от: {valsfrom}</div>
-                    <Range
-                        step={500}
-                        min={0}
-                        max={50000}
-                        values={valsfrom}
-                        onChange={(values) => setValsfrom(values)}
-                        renderTrack={({props, children}) => (
-                            <div
-                                {...props}
-                                style={{
-                                    ...props.style,
-                                    height: '6px',
-                                    width: '100%',
-                                    backgroundColor: "white",
-                                    maxWidth: '350px'
-                                }}
-                            >
-                                {children}
-                            </div>
-                        )}
-                        renderThumb={({props}) => (
-                            <div
-                                {...props}
-                                style={{
-                                    ...props.style,
-                                    height: '20px',
-                                    width: '10px',
-                                    backgroundColor: 'black'
-                                }}
-                            />
-                        )}
-                    />
-                    <div className="price">Цена до: {valsto}</div>
-                    <Range
-                        step={500}
-                        min={0}
-                        max={50000}
-                        values={valsto}
-                        onChange={(values) => setValsto(values)}
-                        renderTrack={({props, children}) => (
-                            <div
-                                {...props}
-                                style={{
-                                    ...props.style,
-                                    height: '6px',
-                                    width: '100%',
-                                    backgroundColor: 'white',
-                                    maxWidth: '350px'
-                                }}
-                            >
-                                {children}
-                            </div>
-                        )}
-                        renderThumb={({props}) => (
-                            <div
-                                {...props}
-                                style={{
-                                    ...props.style,
-                                    height: '20px',
-                                    width: '10px',
-                                    backgroundColor: 'black'
-                                }}
-                            />
-                        )}
-                    />
+                    <PriceRange title={"Цена от"} values={valsfrom} setVals={setValsfrom}/>
+                    <PriceRange title={"Цена до"} values={valsto} setVals={setValsto}/>
                 </Col>
                 <Col xs={12} sm={12} md={5}>
                     <div className="search-box">
@@ -199,51 +124,25 @@ export function Main() {
                     </div>
                 </Col>
             </Row>
-            <Row>
-                {_.slice(dress, (page - 1) * 12, page * 12).map((d: { id: string, title: string, img: string, price: string, likes: string, slot_id: string }) => {
-                    return (
-                        <Col xxl={3} lg={3} md={4} sm={6} sx={12}>
-                            <Card style={{width: '14rem'}} className="content" onClick={function() {window.location.href=`/dress/${d.id}`}}>
-                                <Card.Img variant="top"
-                                          src={require(`../${_.join(_.slice(_.split(d.img, '/'), 3), '/')}`)}/>
-                                <Card.Body>
-                                    <Card.Title>{d.title}</Card.Title>
-                                    <Card.Text>
-                                        <p className="price-text">{d.price} руб</p>
-                                    </Card.Text>
-                                    {/*<Button className="detailed" variant="primary"*/}
-                                    {/*        href={`/dress/${d.id}`}>Подробнее</Button>*/}
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    )
-                })}
-            </Row>
-            <Row>
-                <Col className="pagination">
-                    <Pagination>
-                        <Pagination.First onClick={() => {
-                            setPage(1)
-                        }}/>
-                        {page > 1 && <Pagination.Prev onClick={() => {
-                            setPage(page - 1)
-                        }}/>}
-                        {page > 1 && <Pagination.Item onClick={() => {
-                            setPage(page - 1)
-                        }}>{page - 1}</Pagination.Item>}
-                        <Pagination.Item active>{page}</Pagination.Item>
-                        {page < Math.ceil((dress.length) / 12) && <Pagination.Item onClick={() => {
-                            setPage(page + 1)
-                        }}>{page + 1}</Pagination.Item>}
-                        {page < Math.ceil(dress.length / 12) && <Pagination.Next onClick={() => {
-                            setPage(page + 1)
-                        }}/>}
-                        <Pagination.Last onClick={() => {
-                            setPage(Math.ceil(dress.length / 12))
-                        }}/>
-                    </Pagination>
-                </Col>
-            </Row>
+            {slots.map((s: { id: string, title: string }, i) => {
+                return (
+                    <Fragment>
+                        {checks[i].status &&
+                            <Row style={{borderTop: '2px solid black', marginTop: '20px'}} className="dress-row">
+                                <Row>
+                                    <h2 className="title">{s.title}</h2>
+                                </Row>
+                                <DressRow dress={dress} page={pages[i]} perPage={perPage} slot_id={s.id}/>
+                                <Row>
+                                    <Col className="pagination">
+                                        <MyPagination i={i} pages={pages} setPages={setPages} maxLen={lengths[i]}
+                                                      perPage={perPage}/>
+                                    </Col>
+                                </Row>
+                            </Row>}
+                    </Fragment>
+                )
+            })}
         </Container>
     )
 }

@@ -1,0 +1,53 @@
+
+.next-row {
+    position: absolute;
+    display: block;
+    float: left;
+    margin-top: 50%;
+}
+
+.content {
+    margin: 2px auto;
+    width: 20vw;
+    font-size: 22px;
+    height: 35vw;
+}
+
+@media (max-width: 767px) {
+    .content {
+        width: 35vw;
+        height: 70vw;
+        font-size: 22px;
+    }
+}
+
+.price {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.card {
+    border: 2px solid black;
+    position: relative;
+}
+
+.card:hover {
+    transform: translate(5px,5px);
+    box-shadow: -5px -5px rgba(247, 84, 52, 0.2);
+}
+
+.card-body {
+    padding: 3px;
+}
+
+.card-title {
+    font-size: 28px;
+}
+
+.price-text {
+    position: absolute;
+    bottom: -15px;
+    right: 5px;
+    color: rgb(247, 84, 52);
+    font-weight: bold;
+}

@@ -3,14 +3,6 @@
     margin-bottom: 20px;
 }
 
-.content {
-    margin: 30px auto;
-}
-
-.price {
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
 
 .filter-btn {
     font-size: 16px;
@@ -36,13 +28,18 @@ h3.title {
     text-align: center;
 }
 
+h2.title {
+    text-align: center;
+    font-size: 28px;
+}
+
 .filter-canvas {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
 }
 
 .main {
-    margin-bottom: 45px;
+    margin-bottom: 60px;
 }
 
 .detailed {
@@ -52,17 +49,6 @@ h3.title {
 
 .detailed:hover {
     color: black;
-}
-
-.card {
-    border: 2px solid black;
-    position: relative;
-    min-height: 400px;
-}
-
-.card:hover {
-    transform: translate(5px,5px);
-    box-shadow: -5px -5px rgba(247, 84, 52, 0.2);
 }
 
 .active>.page-link {
@@ -94,17 +80,10 @@ h3.title {
     max-width: 150px;
 }
 
-.price-text {
-    position: absolute;
-    bottom: -15px;
-    right: 5px;
-    color: rgb(247, 84, 52);
-    font-size: 1.2em;
-    font-weight: bold;
+.dress-row {
+    background-color: #FFF5EE;
 }
 
-@media (min-width: 1400px) {
-    .content {
-        width: 20rem!important;
-    }
-}
+
+
+

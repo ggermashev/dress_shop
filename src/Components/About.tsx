@@ -3,7 +3,7 @@ import "./css/Menu.css"
 import React, {useEffect, useState, useRef} from "react";
 import {ReactComponent} from "*.svg";
 import gsap, {Power2} from "gsap"
-import {Image} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 
 export function About() {
     let intro = useRef(null)
@@ -21,23 +21,24 @@ export function About() {
     let [isLink, setIsLink] = useState(false)
     let [isActive, setIsActive] = useState(false)
     const firstUpdate = useRef(true);
+    let tl1 = gsap.timeline()
+    let tl2 = gsap.timeline()
+    //перелистывание
     useEffect(
         () => {
             if (firstUpdate.current) {
                 firstUpdate.current = false;
             } else {
-                let tl1 = gsap.timeline()
-                let tl2 = gsap.timeline()
                 if (diraction) {
                     tl1.to(".info-content", {
                         height: 0,
                         padding: 0,
-                        duration: 1,
-                        delay: 1
+                        duration: .5,
+                        delay: .5
                     })
                     tl2.to(".info-content-text", {
                         opacity: 0,
-                        duration: 1,
+                        duration: .5,
                     })
                     tl1.set(".info-content", {
                         height: '100vh',
@@ -50,23 +51,23 @@ export function About() {
                         paddingLeft: '15%',
                         paddingRight: '15%',
                         paddingBottom: '80px',
-                        duration: 1
+                        duration: .5
                     })
                     tl2.to(".info-content-text", {
                         opacity: 1,
-                        duration: 2,
-                        delay: 2
+                        duration: .5,
+                        delay: 1
                     })
                 } else {
                     tl1.to(".info-content", {
                         height: 0,
                         padding: 0,
-                        duration: 1,
-                        delay: 1
+                        duration: .5,
+                        delay: .5
                     })
                     tl2.to(".info-content-text", {
                         opacity: 0,
-                        duration: 1,
+                        duration: .5,
                     })
                     tl1.set(".info-content", {
                         height: '100vh',
@@ -79,12 +80,12 @@ export function About() {
                         paddingLeft: '15%',
                         paddingRight: '15%',
                         paddingBottom: '80px',
-                        duration: 1
+                        duration: .5
                     })
                     tl2.to(".info-content-text", {
                         opacity: 1,
-                        duration: 1,
-                        delay: 2
+                        duration: .5,
+                        delay: 1
                     })
                 }
                 setTimeout(() => {
@@ -98,15 +99,14 @@ export function About() {
                 }, 1000);
                 setTimeout(() => {
                     setIsActive(true)
-                }, 4000)
+                }, 1500)
             }
         }
         , [page])
 
+    //интро
     useEffect(
         () => {
-            let tl1 = gsap.timeline()
-            let tl2 = gsap.timeline()
             tl1.to(".load-screen", {
                 backgroundColor: 'white',
                 duration: 0.5,
@@ -179,9 +179,20 @@ export function About() {
                 setIsActive(true)
             }, 12000)
         }, [])
+
+
     return (
         <>
             <div className="load-container">
+                <Button className="skip" onClick={() => {
+                    tl1.progress(1)
+                    tl2.progress(1)
+                    tl1.set('.skip', {
+                        opacity: 0,
+                        pointerEvents: 'none'
+                    })
+                    setIsActive(true)
+                }}>Пропустить</Button>
                 <div className="load-screen" ref={intro}>
                     <h2 className="load-title">Модуль и Модуль</h2>
                     <Image className="load-logo-empty" src={require('../media/images/logo-empty.png')}/>
