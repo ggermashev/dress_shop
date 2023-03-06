@@ -9,6 +9,7 @@
     z-index: 6;
     background-color: black;
     opacity: 1;
+    display: flex;
 }
 
 .load-screen {
@@ -120,12 +121,14 @@
     color: white;
     position: absolute;
     bottom: 60px;
-    left: 45%;
+    /*justify-self: center;*/
+    right: 10px;
     width: 300px;
     height: 50px;
     z-index: 100;
     border-color: white;
 }
+
 
 .skip:hover {
     color: rgba(247, 84, 52, 1);

@@ -11,6 +11,8 @@
     width: 20vw;
     font-size: 22px;
     height: 35vw;
+    max-height: 300px;
+    max-width: 150px;
 }
 
 @media (max-width: 767px) {
@@ -50,4 +52,14 @@
     right: 5px;
     color: rgb(247, 84, 52);
     font-weight: bold;
+}
+
+.card-img-top {
+    max-height: 200px;
+    max-width: 150px;
+}
+
+.dress-row {
+    max-width: 800px;
+    margin: 0 auto;
 }
